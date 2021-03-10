@@ -1,36 +1,49 @@
+import Main from './components/Main';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 import {useState} from 'react';
-import Header from './components/Header';
-import Checklist from './components/Checklist';
 import './App.css';
-import AddItem from './AddItem';
-
 
 function App() {
-  const [showAddItem,setShowAddItem] = useState(false);
+  const [userID,setUserID] = useState(0);
 
-  const [items,setItems] = useState([
-    {id : 1,todo : 'Create a repo for the project',done : true,},
-    {id : 2,todo : 'Build a basic React app',done : false,},
-    {id : 3,todo : 'Populate React app with data using an API',done : false,}
-])
+  const [isSignedIn,setSignedIn] = useState(false);
+  const [signInOrSignUp,setSignInOrSignUp] = useState(0);
 
-const addItem = (item) => {
-  const id = items.length+1;
-  const newItem = {todo:item,id,done:false};
-  setItems([...items,newItem]);
-}
-
-const toggleComplete = (id) =>{
-  //setItems(items.filter((item)=>item.id!==id));
-  setItems(items.map((item)=> item.id === id ? {...item,done : !item.done} : item));
-}
+  const toggleSISU = () => {
+    if (signInOrSignUp === 0 ) {
+      setSignInOrSignUp(1);
+      return;
+    }
+    setSignInOrSignUp(0);
+    return;
+  }
   return (
     <div className="App">
-      <Header onClick={()=> setShowAddItem(!showAddItem)} showAdd={showAddItem}/>
-      {showAddItem && <AddItem onAdd={addItem}/>}
-      { items.length ? <Checklist items = {items} toggleComplete={toggleComplete}/> : <h4>No items to display !</h4>} 
+      {isSignedIn &&  
+        <Main 
+          userID={userID} 
+          setUserID={setUserID}
+          setSignInOrSignUp={setSignInOrSignUp}
+          setSignedIn={setSignedIn}
+        />}
+
+      {signInOrSignUp === 0 && 
+        <SignIn 
+          onClick={toggleSISU} 
+          setMain={setSignInOrSignUp} 
+          onLogin={setSignedIn}
+          setUserID={setUserID}
+        />}
+
+      {signInOrSignUp === 1 && 
+        <SignUp 
+          onClick={toggleSISU} 
+          setMain={setSignInOrSignUp} 
+          onLogin={setSignedIn}
+          setUserID={setUserID}
+        />}
     </div>
   );
 }
-
 export default App;

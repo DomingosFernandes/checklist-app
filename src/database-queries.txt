@@ -1,0 +1,33 @@
+CREATE TABLE SPW05319.CHECKLIST_USERS(
+ 	user_id INT  PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+	user_name VARCHAR(32) NOT NULL,
+	user_pass VARCHAR(32) NOT NULL
+);
+
+CREATE TABLE SPW05319.CHECKLIST_ITEMS(
+	item_id  INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+	item_name VARCHAR(20) NOT NULL,
+	item_done BOOLEAN NOT NULL,
+	user_id INT NOT NULL,
+	FOREIGN KEY(user_id) references SPW05319.CHECKLIST_USERS(user_id)
+);
+
+INSERT INTO SPW05319.CHECKLIST_USERS(user_name,user_pass) VALUES ('domingos_fernandes','trees');
+INSERT INTO SPW05319.CHECKLIST_USERS(user_name,user_pass) VALUES ('pratik_kitlekar','grass');
+
+INSERT INTO SPW05319.CHECKLIST_ITEMS(item_name,item_done,user_id) VALUES ('Create a repo',1,1);
+INSERT INTO SPW05319.CHECKLIST_ITEMS(item_name,item_done,user_id) VALUES ('Build an app',0,1);
+INSERT INTO SPW05319.CHECKLIST_ITEMS(item_name,item_done,user_id) VALUES ('Use API call',0,1);
+INSERT INTO SPW05319.CHECKLIST_ITEMS(item_name,item_done,user_id) VALUES ('Play cricket',1,2);
+INSERT INTO SPW05319.CHECKLIST_ITEMS(item_name,item_done,user_id) VALUES ('Buy milk',0,2);
+
+
+Visual Studio Code v1.54
+Git v2.30.1
+Node.js v14.16.0 LTS
+Docker Desktop 3.2.1
+
+Visual Studio Code - https://code.visualstudio.com/download
+Git - https://git-scm.com/download/win
+Node.js - https://nodejs.org/en/download/
+Docker - https://docs.docker.com/docker-for-windows/release-notes/ - under Docker Desktop 3.2.1 
