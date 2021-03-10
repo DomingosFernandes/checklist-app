@@ -3,12 +3,13 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import {useState} from 'react';
 import './App.css';
-
+import {Loading} from 'carbon-components-react';
 function App() {
   const [userID,setUserID] = useState(0);
 
   const [isSignedIn,setSignedIn] = useState(false);
   const [signInOrSignUp,setSignInOrSignUp] = useState(0);
+  const [isLoading,setIsLoading] = useState(false);
 
   const toggleSISU = () => {
     if (signInOrSignUp === 0 ) {
@@ -20,6 +21,7 @@ function App() {
   }
   return (
     <div className="App">
+      <Loading active={isLoading} />
       {isSignedIn &&  
         <Main 
           userID={userID} 
@@ -34,6 +36,7 @@ function App() {
           setMain={setSignInOrSignUp} 
           onLogin={setSignedIn}
           setUserID={setUserID}
+          setIsLoading = {setIsLoading}
         />}
 
       {signInOrSignUp === 1 && 
@@ -42,6 +45,7 @@ function App() {
           setMain={setSignInOrSignUp} 
           onLogin={setSignedIn}
           setUserID={setUserID}
+          setIsLoading = {setIsLoading}
         />}
     </div>
   );

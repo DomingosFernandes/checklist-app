@@ -1,5 +1,6 @@
 import {useState} from 'react';
-
+import {Button} from 'carbon-components-react';
+import {PinFilled16} from '@carbon/icons-react';
 const AddItem = ({onAdd}) => {
     const [taskName,setTaskName] = useState('');
 
@@ -20,7 +21,12 @@ const AddItem = ({onAdd}) => {
                 value = {taskName}
                 onChange={(e)=> setTaskName(e.target.value)}
             />
-            <button className="submit-btn" type="submit">Save Item</button>
+            <Button 
+                renderIcon={PinFilled16}
+                iconDescription="Save Item"
+                type="submit"
+            >Save item !</Button>
+
         </form>
     )
 }

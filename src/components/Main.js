@@ -2,6 +2,8 @@ import { useState, useEffect} from 'react';
 import Header from './Header';
 import Checklist from './Checklist';
 import AddItem from './AddItem';
+import {Button} from 'carbon-components-react';
+import {Power16} from '@carbon/icons-react';
 export default function Main({userID,setUserID,setSignInOrSignUp,setSignedIn}) {
     const [showAddItem,setShowAddItem] = useState(false);
     const [items,setItems] = useState([]);
@@ -46,10 +48,12 @@ export default function Main({userID,setUserID,setSignInOrSignUp,setSignedIn}) {
             <Header onClick={()=> setShowAddItem(!showAddItem)} showAdd={showAddItem}/>
             {showAddItem && <AddItem onAdd={addItem}/>}
             { items.length ? <Checklist items = {items} toggleComplete={toggleComplete}/> : <h4 className="inline">Please wait,loading...</h4>} 
-            <button className="sign-out-btn" onClick={()=>{setSignInOrSignUp(0);setSignedIn(false);}}>Sign Out</button>
+            <Button kind="danger--tertiary" renderIcon = {Power16} iconDescription="Sign Out" onClick={()=>{setSignInOrSignUp(0);setSignedIn(false);}}>Sign Out</Button>
         </div>
     )
 }
 
 //->https://www.carbondesignsystem.com/components/loading/usage/
 //->https://react.carbondesignsystem.com/?path=/docs/components-loading--default
+//->https://www.carbondesignsystem.com/developing/react-tutorial/step-1
+//->https://www.carbondesignsystem.com/guidelines/icons/library
