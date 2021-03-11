@@ -6,8 +6,8 @@ const Item = ({item,toggleComplete}) => {
             <h3>{item.id}.{item.todo}</h3>
             { 
                item.done ? 
-               <FaTimes onClick={() => toggleComplete(item.id)} style = {{ cursor : "pointer"}}/>:
-               <FcCheckmark onClick={() => toggleComplete(item.id)} style = {{ cursor : "pointer"}}/> 
+               <FaTimes onClick={() => toggleComplete(item)} style = {{ cursor : "pointer"}}/>:
+               <FcCheckmark onClick={() => toggleComplete(item)} style = {{ cursor : "pointer"}}/> 
             }
             
         </div>

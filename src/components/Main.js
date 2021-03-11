@@ -7,7 +7,6 @@ import {Power16} from '@carbon/icons-react';
 export default function Main({userID,setUserID,setSignInOrSignUp,setSignedIn}) {
     const [showAddItem,setShowAddItem] = useState(false);
     const [items,setItems] = useState([]);
-
     useEffect(()=>{
         async function getData(userID) {
         let response = await fetch(`http://localhost:9000/users/${userID}`);
@@ -15,9 +14,10 @@ export default function Main({userID,setUserID,setSignInOrSignUp,setSignedIn}) {
         let list = result.data;
         let data = [];
 
+        console.log(list);
         for (let index=0;index<list.length;index++){
-            let {ITEM_DONE,ITEM_NAME} = list[index];
-            data.push({id:index+1,todo:ITEM_NAME,done:ITEM_DONE});
+            let {ITEM_DONE,ITEM_NAME,ITEM_ID} = list[index];
+            data.push({id:index+1,todo:ITEM_NAME,done:ITEM_DONE,dbid:ITEM_ID});
         }
         setItems(data);
         }
@@ -40,8 +40,16 @@ export default function Main({userID,setUserID,setSignInOrSignUp,setSignedIn}) {
         setItems([...items,newItem]);
     }
 
-    const toggleComplete = (id) =>{
-        setItems(items.map((item)=> item.id === id ? {...item,done : !item.done} : item));
+    const toggleComplete = (item) =>{
+        setItems(items.map((currItem)=> currItem.id === item.id ? {...currItem,done : !currItem.done} : currItem));
+        fetch(`http://localhost:9000/users/${userID}`,{
+          method:'PUT',
+          cors:'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ITEM_ID:item.dbid,ITEM_DONE:!item.done})
+        });
     }
     return (
         <div className="main">
